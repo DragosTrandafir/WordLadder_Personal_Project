@@ -7,7 +7,9 @@ For automatic mode, choose option 1 and for the playing mode choose option 2.
 TO RUN THE PROJECT, create a project in a C++ IDE, I recommend Visual Studio Community or C Lion. Copy all the headers (.h) ,cpp (.cpp) files + english_words.txt and after that run the Source.cpp. 
 
 
-AUTOMATIC MODE: 
+AUTOMATIC MODE: option 1
+PLAYER MODE: option 2
+STOP: option 0
 
 
 
