@@ -9,11 +9,11 @@ bool available_word(const string& prev_word, const string& word) {
 
 
     if (std::find(random_words.begin(), random_words.end(), word) != random_words.end()) {
-        int c = 0;
+        int nr_different_letters = 0;
         for (int i = 0; i < word.length(); i++) {
             if (word[i] != prev_word[i])
-                c++;
-            if (c == 2)
+                nr_different_letters++;
+            if (nr_different_letters == 2)
                 return false;
         }
         return true;
@@ -47,8 +47,8 @@ int main() {
                 std::cout << "Enter target word: ";
                 std::cin >> end;
                 form_n_letters_map(start.length(), "english_words.txt");
-                Graph<string> g1;
-                vector<string> path = find_transformation(start, end, g1);
+                Graph<string> words_graph;
+                vector<string> path = find_transformation(start, end, words_graph);
                 std::cout << "Shortest transformation from " << start << " to " << end << ":" << std::endl;
                 for (const auto& word : path)
                    std::cout << word << " ";
@@ -71,7 +71,7 @@ int main() {
                 std::cin >> length;
 
                 form_n_letters_map(length, "english_words.txt");
-                Graph<string> g1;
+                Graph<string> words_graph;
 
                 string start, end;
                 int random_index;
@@ -92,7 +92,7 @@ int main() {
                     std::cin >> subcase;
                     if (subcase == 10) {
                         nr_hints++;
-                        vector<string> path = find_transformation(prev_word, end, g1);
+                        vector<string> path = find_transformation(prev_word, end, words_graph);
                         int j = index_of_different_letter(prev_word, path[1]);
                         if (path.size() >= 2) { // Check if the path has at least two elements
                             int j = index_of_different_letter(prev_word, path[1]);
@@ -124,9 +124,9 @@ int main() {
                 outfile << "Number of hints " << nr_hints << std::endl;
 
 
-                const auto now = std::chrono::system_clock::now();
-                const std::time_t t_c = std::chrono::system_clock::to_time_t(now);
-                outfile << "The system clock is currently at " << std::ctime(&t_c);
+                const auto current_clock = std::chrono::system_clock::now();
+                const std::time_t current_time = std::chrono::system_clock::to_time_t(current_clock);
+                outfile << "The system clock is currently at " << std::ctime(&current_time);
                 //outfile << std::endl;
 
                 outfile << name << " used the words : ";
@@ -134,7 +134,7 @@ int main() {
                     outfile << elem << " ";
                 outfile << std::endl;
 
-                outfile << name << " made : " << nr_moves << " moves. The nr of optimal moves is : " << find_transformation(start, end, g1).size() - 1 << std::endl;
+                outfile << name << " made : " << nr_moves << " moves. The nr of optimal moves is : " << find_transformation(start, end, words_graph).size() - 1 << std::endl;
                 //outfile << std::endl;
                 outfile.close();
 
