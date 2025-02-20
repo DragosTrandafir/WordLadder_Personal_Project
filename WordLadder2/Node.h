@@ -27,8 +27,8 @@ private:
     map<T, set<T>> adjacency_lists; // Adjacency lists representation
 public:
     Graph();
-    friend ostream& operator<<(ostream& os2, const Graph<string>& g);
-    friend vector<string> find_transformation(const string& start, const string& end, const Graph<string>& g);
+    friend ostream& operator<<(ostream& outputStream, const Graph<string>& graph);
+    friend vector<string> find_transformation(const string& start, const string& end, const Graph<string>& graph);
 };
 
 
@@ -40,9 +40,9 @@ void form_n_letters_map(int n, const string& path);
 template<typename T>
 inline Graph<T>::Graph() {
     // Build the graph
-    for (auto elem : pattern_words)
-        for (auto word : elem.second) {
-            for (auto it = elem.second.begin(); it != elem.second.end(); ++it) {
+    for (auto pattern_word : pattern_words)
+        for (auto word : pattern_word.second) {
+            for (auto it = pattern_word.second.begin(); it != pattern_word.second.end(); ++it) {
                 if (*it != word) {
                         adjacency_lists[*it].insert(word);
                         adjacency_lists[word].insert(*it);
@@ -50,4 +50,4 @@ inline Graph<T>::Graph() {
                 }
             }
         }
-vector<string> find_transformation(const string& start, const string& end, const Graph<string>& g);
+vector<string> find_transformation(const string& start, const string& end, const Graph<string>& graph);
